@@ -1,466 +1,176 @@
-<!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<!doctype html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Om Mahesh Sakhare — Data Engineer & Analytics Specialist</title>
-  
-  <!-- SEO & Open Graph Meta Tags -->
-  <meta name="description" content="Portfolio of Om Mahesh Sakhare — Data Engineering and Analytics Specialist specializing in ETL/ELT pipelines, SQL optimization, statistical market modeling, and data cleansing.">
-  <meta name="keywords" content="Om Mahesh Sakhare, Data Engineer, Data Analyst, Python, SQL, ETL, Pandas, FastAPI, Machine Learning, Mumbai, University of Mumbai, GitHub Pages">
-  <meta name="author" content="Om Mahesh Sakhare">
-  
-  <!-- Open Graph / Social Sharing -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Om Sakhare, data engineer</title>
+  <meta name="description" content="Om Sakhare turns messy data into something you can use. Data engineering and analytics projects: Formata, PersonalAPI, Crop-Chain and more.">
+  <meta property="og:title" content="Om Sakhare, data engineer">
+  <meta property="og:description" content="Data engineering and analytics projects by Om Sakhare.">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Om Mahesh Sakhare — Data Engineer & Analytics Specialist">
-  <meta property="og:description" content="Architecting high-throughput data pipelines, SQL optimization, and predictive analytical systems.">
-  <meta property="og:url" content="https://arch-bytes.github.io/">
-  <meta property="og:site_name" content="Om Sakhare Portfolio">
-  
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Om Mahesh Sakhare — Data Engineer & Analytics Specialist">
-  <meta name="twitter:description" content="Architecting high-throughput data pipelines, SQL optimization, and predictive analytical systems.">
-
-  <!-- Schema.org JSON-LD Structured Data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Om Mahesh Sakhare",
-    "jobTitle": "Data Engineer & Analytics Specialist",
-    "url": "https://arch-bytes.github.io/",
-    "sameAs": [
-      "https://github.com/arch-bytes",
-      "https://www.linkedin.com/in/om-sakhare"
-    ],
-    "alumniOf": [
-      {
-        "@type": "EducationalOrganization",
-        "name": "University of Mumbai"
-      },
-      {
-        "@type": "EducationalOrganization",
-        "name": "Viva College of Engineering and Technology"
-      }
-    ],
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Vasai, Mumbai",
-      "addressRegion": "Maharashtra",
-      "addressCountry": "India"
-    }
-  }
+  <meta name="theme-color" content="#0e0d0c">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Geist:wght@300;400;500&family=Geist+Mono:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <script>
+    document.documentElement.classList.add('js');
+    try {
+      var t = localStorage.getItem('theme') || (matchMedia('(prefers-color-scheme: light)').matches ? 'paper' : 'night');
+      document.documentElement.dataset.theme = t;
+      if (!matchMedia('(prefers-reduced-motion: reduce)').matches && !sessionStorage.getItem('intro-seen')) document.documentElement.classList.add('intro-playing');
+    } catch (e) {}
   </script>
-
-  <!-- Stylesheets -->
-  <link rel="stylesheet" href="css/main.css">
-  <link rel="stylesheet" href="css/components.css">
-  <link rel="stylesheet" href="css/animations.css">
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
 </head>
 <body>
-  <!-- Fixed Site Navigation Header -->
-  <header class="site-header" id="site-header">
-    <div class="container header-container">
-      <a href="#hero" class="brand-logo" aria-label="Om Sakhare Home">
-        <span class="brand-symbol">OM</span>
-        <span class="brand-text">om.sakhare<span class="text-cyan">.dev</span></span>
-      </a>
+  <a class="skip" href="#main">Skip to content</a>
+  <canvas class="scene" id="scene" aria-hidden="true"></canvas>
+  <div class="poster" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="ink" aria-hidden="true"></div>
+  <div class="intro" aria-hidden="true">
+    <span class="intro-count mono">000</span>
+    <span class="intro-label mono">Loading raw data</span>
+    <button class="intro-skip mono" type="button" tabindex="-1">Skip</button>
+  </div>
 
-      <nav aria-label="Main Navigation">
-        <ul class="nav-links" id="nav-links">
-          <li><a href="#hero" class="nav-link active">Overview</a></li>
-          <li><a href="#pipeline" class="nav-link">Live DAG</a></li>
-          <li><a href="#sql-studio" class="nav-link">SQL Studio</a></li>
-          <li><a href="#cleaner" class="nav-link">Data Cleaner</a></li>
-          <li><a href="#projects" class="nav-link">Projects</a></li>
-          <li><a href="#skills" class="nav-link">Skills</a></li>
-          <li><a href="#theatre" class="nav-link">Storytelling Edge</a></li>
-          <li><a href="#journey" class="nav-link">Journey</a></li>
-          <li><a href="#contact" class="nav-link">Contact</a></li>
-        </ul>
-      </nav>
-
-      <div class="header-actions">
-        <button class="terminal-pill-btn" id="quick-terminal-pill" title="Press Ctrl+K or ` to toggle CLI">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
-          <span>CLI</span>
-          <kbd style="font-size: 0.65rem; background: rgba(255,255,255,0.08); padding: 1px 4px; border-radius: 3px;">^K</kbd>
-        </button>
-
-        <button class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle Dark/Light Theme">
-          <span id="theme-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
-          </span>
-        </button>
-
-        <button class="nav-toggle-btn" id="nav-toggle" aria-label="Toggle mobile menu">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-        </button>
-      </div>
-    </div>
+  <header class="nav">
+    <a class="wordmark" href="#top">Om Sakhare</a>
+    <nav aria-label="Primary">
+      <ul>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><button class="theme-btn" type="button" aria-pressed="false" aria-label="Switch to light theme"><span aria-hidden="true"></span></button></li>
+      </ul>
+    </nav>
   </header>
 
-  <!-- Main Content Layout -->
-  <main id="main-content">
-    
-    <!-- 1. Hero Section -->
-    <section class="section hero-section" id="hero">
-      <div class="container">
-        <div class="hero-status-row">
-          <div class="status-badge">
-            <span class="status-dot-pulse"></span>
-            <span>AVAILABLE FOR DATA ROLES</span>
-          </div>
-          <div class="ist-clock-badge">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            <span id="ist-clock">Loading IST...</span>
-          </div>
-          <span class="badge font-mono">Vasai, Mumbai, IN</span>
-        </div>
+  <main id="main">
+    <section class="hero" id="top" data-stage="0">
+      <p class="hero-meta mono"><span data-scramble>Vasai, India</span><span data-scramble>B.Tech CSE, Data Science</span><span data-scramble>Click anywhere</span></p>
+      <h1 class="hero-name" data-split>Om Sakhare</h1>
+      <div class="hero-foot">
+        <p class="hero-line" data-reveal>Data engineer in the making. I turn messy data into something you can use.</p>
+        <a class="scroll-cue mono" href="#statement">Scroll</a>
+      </div>
+    </section>
 
-        <div class="hero-title">
-          <h1>
-            Building Resilient Data Systems.<br>
-            <span class="name-highlight">Om Mahesh Sakhare</span>
-          </h1>
-        </div>
+    <section class="statement" id="statement" data-stage="1">
+      <p class="statement-text" data-split>Every dataset arrives broken. Duplicates, missing values, dates in five formats. I build the pipelines that find the noise, drop it, and leave a <em>clean table</em> behind.</p>
+    </section>
 
-        <p class="hero-lead">
-          Data Engineer & Analytics Specialist with a deep focus on <strong>ETL/ELT pipeline design</strong>, <strong>high-performance SQL querying</strong>, and <strong>autonomous raw data cleansing</strong>. Bridging mathematical rigour with stage-crafted executive storytelling.
-        </p>
-
-        <div class="hero-actions">
-          <a href="#sql-studio" class="btn btn-primary">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></svg>
-            Launch SQL Studio
+    <section class="work" id="work" data-stage="2" aria-labelledby="work-h">
+      <div class="section-head">
+        <h2 id="work-h" data-split>Selected work</h2>
+        <p class="mono muted" data-scramble>05 projects // hover to reshape</p>
+      </div>
+      <ol class="projects">
+        <li class="project" data-shape="formata">
+          <a href="https://github.com/JadhavAnsh/Formata" rel="noopener">
+            <span class="p-idx mono">01</span>
+            <span class="p-name">Formata</span>
+            <span class="p-desc">Turns messy CSV, JSON and Excel files into clean, validated datasets: type inference, deduplication, outlier detection, imputation and a data quality score. Built at Codeverse 2026.</span>
+            <span class="p-stack mono">FastAPI · Next.js · pandas</span>
           </a>
-          <a href="#pipeline" class="btn btn-outline">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M18 6h-7a4 4 0 0 0-4 4v8"/></svg>
-            Inspect Pipeline DAG
+        </li>
+        <li class="project" data-shape="personalapi">
+          <a href="https://personalapi.tech" rel="noopener">
+            <span class="p-idx mono">02</span>
+            <span class="p-name">PersonalAPI</span>
+            <span class="p-desc">One API over Gmail, Drive, GitHub, Notion and Slack, with real-time sync, vector search and MCP tools. Live at personalapi.tech.</span>
+            <span class="p-stack mono">FastAPI · PostgreSQL · Redis · Celery</span>
           </a>
-          <button class="btn btn-outline" id="btn-open-terminal">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
-            Open Data CLI
-          </button>
-          <button class="btn btn-outline" onclick="window.print()" title="Print or save as PDF">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
-            Print Clean Resume
-          </button>
-        </div>
-
-        <!-- Quick Channel Telemetry -->
-        <div class="hero-channels">
-          <div class="channel-item copy-trigger" data-copy-text="omsakhare023@gmail.com" title="Click to copy email">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-            <span class="font-mono">omsakhare023@gmail.com</span>
-            <span class="badge badge-sm">copy</span>
-          </div>
-          <div class="channel-item copy-trigger" data-copy-text="+917559186306" title="Click to copy phone">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-            <span class="font-mono">+91 7559186306</span>
-          </div>
-          <a href="https://github.com/arch-bytes" target="_blank" rel="noopener noreferrer" class="channel-item">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-            <span class="font-mono">github/arch-bytes</span>
+        </li>
+        <li class="project" data-shape="cropchain">
+          <a href="https://github.com/dhruvjaink07/agriculture-management" rel="noopener">
+            <span class="p-idx mono">03</span>
+            <span class="p-name">Crop-Chain</span>
+            <span class="p-desc">Connects farmers and distributors with inventory tracking, analytics dashboards and a RAG chat assistant. Built at Nirman 25.</span>
+            <span class="p-stack mono">Next.js · Flask · MongoDB</span>
           </a>
-          <a href="https://www.linkedin.com/in/om-sakhare" target="_blank" rel="noopener noreferrer" class="channel-item">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
-            <span class="font-mono">linkedin/in/om-sakhare</span>
+        </li>
+        <li class="project" data-shape="trip">
+          <a href="https://github.com/Arch-bytes/Ai-Trip-Planner" rel="noopener">
+            <span class="p-idx mono">04</span>
+            <span class="p-name">AI Trip Planner</span>
+            <span class="p-desc">Gemini plans an itinerary for any place, with seasonal advice and local events.</span>
+            <span class="p-stack mono">React · Flask · MongoDB</span>
           </a>
-        </div>
+        </li>
+        <li class="project" data-shape="bullbot">
+          <a href="https://github.com/Arch-bytes/Bullbot" rel="noopener">
+            <span class="p-idx mono">05</span>
+            <span class="p-name">Bullbot</span>
+            <span class="p-desc">Analyses the stock market and trades on predefined technical indicators.</span>
+            <span class="p-stack mono">Python</span>
+          </a>
+        </li>
+      </ol>
+    </section>
 
-        <!-- Metrics Grid -->
-        <div class="metrics-grid" id="metrics-grid">
-          <!-- Ingested dynamically via data.js -->
+    <section class="marquee" aria-label="Toolkit">
+      <div class="marquee-track" aria-hidden="true">
+        <span>Python <i>✦</i> SQL <i>✦</i> pandas <i>✦</i> NumPy <i>✦</i> scikit-learn <i>✦</i> TensorFlow <i>✦</i> FastAPI <i>✦</i> Flask <i>✦</i> Seaborn <i>✦</i>&nbsp;</span><span>Python <i>✦</i> SQL <i>✦</i> pandas <i>✦</i> NumPy <i>✦</i> scikit-learn <i>✦</i> TensorFlow <i>✦</i> FastAPI <i>✦</i> Flask <i>✦</i> Seaborn <i>✦</i>&nbsp;</span>
+      </div>
+      <p class="visually-hidden">Python, SQL, pandas, NumPy, scikit-learn, TensorFlow, FastAPI, Flask, Seaborn.</p>
+    </section>
+
+    <section class="about" id="about" data-stage="2.6" aria-labelledby="about-h">
+      <h2 id="about-h" data-split>About</h2>
+      <div class="about-grid">
+        <div class="about-block" data-reveal>
+          <h3 class="mono muted" data-scramble>Toolkit</h3>
+          <p>Python, SQL, pandas, NumPy, scikit-learn, TensorFlow, Seaborn, FastAPI, Flask.</p>
+        </div>
+        <div class="about-block" data-reveal>
+          <h3 class="mono muted" data-scramble>Education</h3>
+          <ul class="rows">
+            <li><span>B.Tech CSE (Data Science), VCET, University of Mumbai</span><span class="mono">Now</span></li>
+            <li><span>Diploma, Computer Engineering, 85.43%</span><span class="mono">2024</span></li>
+            <li><span>Oracle Database Foundation</span><span class="mono">Cert</span></li>
+          </ul>
+        </div>
+        <div class="about-block" data-reveal>
+          <h3 class="mono muted" data-scramble>Hackathons</h3>
+          <ul class="rows">
+            <li><span>Codeverse, Formata</span><span class="mono">2026</span></li>
+            <li><span>Nirman 25, Crop-Chain</span><span class="mono">2025</span></li>
+            <li><span>Codeverse, AR object placement</span><span class="mono">2023</span></li>
+          </ul>
+        </div>
+        <div class="about-block" data-reveal>
+          <h3 class="mono muted" data-scramble>Off screen</h3>
+          <p>I direct theatre. It taught me to tell a story with what's on stage, which is most of what a good dashboard does.</p>
         </div>
       </div>
     </section>
 
-    <!-- 2. Live Pipeline DAG Simulator -->
-    <section class="section" id="pipeline">
-      <div class="container">
-        <div class="section-header">
-          <div class="section-tag">Orchestration & Telemetry</div>
-          <h2 class="section-title">End-to-End Pipeline DAG Simulator</h2>
-          <p class="section-desc">
-            An interactive simulator representing how data streams move from raw event ingestion through strict schema validation, autonomous cleaning, rolling aggregations, and analytical storage.
-          </p>
-        </div>
-
-        <div id="pipeline-simulator-container">
-          <!-- Rendered dynamically by pipeline-visualizer.js -->
-        </div>
-      </div>
-    </section>
-
-    <!-- 3. Interactive In-Browser SQL Studio -->
-    <section class="section" id="sql-studio">
-      <div class="container">
-        <div class="section-header">
-          <div class="section-tag">Interactive Query Engine</div>
-          <h2 class="section-title">Client-Side SQL Query Studio</h2>
-          <p class="section-desc">
-            Directly query real datasets from Om's projects (Bullbot trades, Crop-Chain agricultural pricing, and Codeverse ML cleaner metrics) using in-browser SQL execution.
-          </p>
-        </div>
-
-        <div id="sql-studio-container">
-          <!-- Rendered dynamically by app.js initSqlStudio() -->
-        </div>
-      </div>
-    </section>
-
-    <!-- 4. Codeverse 2026 Raw Data Cleansing Testbed -->
-    <section class="section" id="cleaner">
-      <div class="container">
-        <div class="section-header">
-          <div class="section-tag">Hackathon Engineering</div>
-          <h2 class="section-title">Autonomous ML Data Quality Engine</h2>
-          <p class="section-desc">
-            Built for the Codeverse 2026 Hackathon. Test how the pipeline ingests corrupt, noisy raw datasets and autonomously applies schema normalization, fuzzy deduplication, and KNN null imputation.
-          </p>
-        </div>
-
-        <div id="cleaner-demo-container">
-          <!-- Rendered dynamically by data-cleaner-demo.js -->
-        </div>
-      </div>
-    </section>
-
-    <!-- 5. Production Systems & Case Studies -->
-    <section class="section" id="projects">
-      <div class="container">
-        <div class="section-header">
-          <div class="section-tag">Featured Architectures</div>
-          <h2 class="section-title">Production Systems & Pipelines</h2>
-          <p class="section-desc">
-            Production-grade systems designed with emphasis on low-latency data ingestion, strict schema enforcement, and real-time analytical reporting.
-          </p>
-        </div>
-
-        <div class="projects-filter-bar" id="project-filters">
-          <!-- Filter pills injected here -->
-        </div>
-
-        <div class="projects-grid" id="projects-grid">
-          <!-- Rendered dynamically by app.js -->
-        </div>
-      </div>
-    </section>
-
-    <!-- 6. Skills & Technology Matrix -->
-    <section class="section" id="skills">
-      <div class="container">
-        <div class="section-header">
-          <div class="section-tag">Technical Capabilities</div>
-          <h2 class="section-title">Skills & Infrastructure Matrix</h2>
-          <p class="section-desc">
-            A comprehensive overview of programming languages, data pipelines, analytical frameworks, and database engines mastered through rigorous coursework and production deployments.
-          </p>
-        </div>
-
-        <div class="skill-tabs-nav" id="skill-tabs">
-          <!-- Category tabs injected here -->
-        </div>
-
-        <div id="skills-content">
-          <!-- Skills list injected here -->
-        </div>
-      </div>
-    </section>
-
-    <!-- 7. The Storytelling Edge: Theatre Arts & Data Engineering -->
-    <section class="section" id="theatre">
-      <div class="container">
-        <div class="theatre-card">
-          <div class="theatre-header">
-            <span class="badge badge-accent">Unique Competitive Edge</span>
-            <h3 class="section-title" style="margin-top: 0.5rem;">The Data Storyteller Advantage</h3>
-            <p class="text-muted">
-              Why a background in <strong>Theatre Arts, Stage Directing, and Scriptwriting</strong> makes Om a far more impactful Data Engineer and Analyst.
-            </p>
-          </div>
-
-          <div class="theatre-points-grid">
-            <div class="theatre-point-item">
-              <div class="theatre-point-title">Directing the Narrative Arc of Data</div>
-              <p class="text-xs text-muted">
-                Raw tables don't drive business decisions—compelling stories do. Directing theatrical scripts taught me how to sequence complex information, pace executive delivery, and translate dense telemetry into crystal-clear actions.
-              </p>
-            </div>
-            <div class="theatre-point-item">
-              <div class="theatre-point-title">Zero-Error Live Orchestration</div>
-              <p class="text-xs text-muted">
-                Live stage performance allows no retakes when the curtain rises. I apply this exact operational discipline to production ETL pipelines: resilient exception handling, graceful fallback states, and active self-healing.
-              </p>
-            </div>
-            <div class="theatre-point-item">
-              <div class="theatre-point-title">Radical Stakeholder Empathy</div>
-              <p class="text-xs text-muted">
-                Just as an actor must connect authentically with an audience, a data engineer must understand the cognitive load of analysts and executives, designing ergonomic schemas and intuitive analytical interfaces.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 8. Hackathons & Academic Journey -->
-    <section class="section" id="journey">
-      <div class="container">
-        <div class="section-header">
-          <div class="section-tag">Milestones & Accreditations</div>
-          <h2 class="section-title">Hackathons & Academic Foundations</h2>
-          <p class="section-desc">
-            A track record of competitive innovation, state-level hackathon awards, and foundational computer science qualifications.
-          </p>
-        </div>
-
-        <h3 style="margin-bottom: 1.25rem; font-size: 1.25rem;">Competitive Hackathons</h3>
-        <div class="hackathons-grid" id="hackathons-grid">
-          <!-- Hackathon cards injected here -->
-        </div>
-
-        <div style="margin-top: 4rem;">
-          <h3 style="margin-bottom: 1.5rem; font-size: 1.25rem;">Academic Progression</h3>
-          <div class="timeline-container" id="education-timeline">
-            <!-- Education timeline injected here -->
-          </div>
-        </div>
-
-        <div style="margin-top: 4rem;">
-          <h3 style="margin-bottom: 1.25rem; font-size: 1.25rem;">Industry Certifications</h3>
-          <div class="certifications-grid" id="certifications-grid">
-            <!-- Certifications injected here -->
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 9. Contact Section -->
-    <section class="section contact-section" id="contact">
-      <div class="container">
-        <div class="contact-card">
-          <div>
-            <div class="section-tag">Direct Communication</div>
-            <h2 class="section-title">Let's Discuss Data Engineering & Analytics</h2>
-            <p class="text-muted">
-              I am actively seeking Data Analyst & Data Engineering roles, internships, and high-impact data initiatives. Whether you have an open opportunity or an interesting pipeline challenge, let's connect.
-            </p>
-
-            <div class="contact-info-list">
-              <div class="contact-info-item copy-trigger" data-copy-text="omsakhare023@gmail.com">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-                <div>
-                  <div class="text-xs text-muted">Email Address (Click to copy)</div>
-                  <div class="font-mono text-cyan">omsakhare023@gmail.com</div>
-                </div>
-              </div>
-
-              <div class="contact-info-item copy-trigger" data-copy-text="+917559186306">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                <div>
-                  <div class="text-xs text-muted">Phone / WhatsApp (Click to copy)</div>
-                  <div class="font-mono text-cyan">+91 7559186306</div>
-                </div>
-              </div>
-
-              <a href="https://www.linkedin.com/in/om-sakhare" target="_blank" rel="noopener noreferrer" class="contact-info-item">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
-                <div>
-                  <div class="text-xs text-muted">Professional Network</div>
-                  <div class="font-mono text-cyan">linkedin.com/in/om-sakhare</div>
-                </div>
-              </a>
-
-              <a href="https://github.com/arch-bytes" target="_blank" rel="noopener noreferrer" class="contact-info-item">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-                <div>
-                  <div class="text-xs text-muted">Open Source Repositories</div>
-                  <div class="font-mono text-cyan">github.com/arch-bytes</div>
-                </div>
-              </a>
-            </div>
-          </div>
-
-          <div style="display: flex; flex-direction: column; justify-content: space-between;">
-            <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.5rem;">
-              <h4 style="margin-bottom: 0.75rem;">Quick Resume Summary</h4>
-              <p class="text-xs text-muted" style="margin-bottom: 1rem;">
-                Looking for a formal copy of my curriculum vitae? You can generate a clean print format or download it directly.
-              </p>
-              <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
-                <button class="btn btn-primary btn-sm" onclick="window.print()">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
-                  Print / Save PDF
-                </button>
-                <a href="mailto:omsakhare023@gmail.com?subject=Data%20Engineering%20Opportunity%20-%20Om%20Sakhare" class="btn btn-outline btn-sm">
-                  Send Email Message
-                </a>
-              </div>
-            </div>
-
-            <div style="margin-top: 1.5rem; padding: 1.25rem; background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md);">
-              <div class="font-mono text-xs text-emerald" style="margin-bottom: 0.25rem;">
-                ● STATUS: ACTIVE APPLICANT
-              </div>
-              <div class="text-xs text-muted">
-                Available for internships, full-time junior data engineering positions, and data analyst roles in Mumbai or remote worldwide.
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+    <section class="contact" id="contact" data-stage="3" aria-labelledby="contact-h">
+      <h2 id="contact-h" class="mono muted" data-scramble>Open to data analyst internships</h2>
+      <a class="contact-mail magnetic" href="mailto:omsakhare023@gmail.com">omsakhare023<wbr>@gmail.com</a>
+      <ul class="contact-links mono">
+        <li><a href="https://www.linkedin.com/in/om-sakhare" rel="noopener">LinkedIn</a></li>
+        <li><a href="https://github.com/Arch-bytes" rel="noopener">GitHub</a></li>
+      </ul>
     </section>
   </main>
 
-  <!-- Site Footer -->
-  <footer class="site-footer">
-    <div class="container footer-content">
-      <div>
-        © 2026 <strong>Om Mahesh Sakhare</strong>. Handcrafted with precision, Impeccable taste & zero AI slop.
-      </div>
-      <div class="font-mono text-xs text-muted">
-        GitHub Pages Static Build • Sub-50ms FCP • No Backend Required
-      </div>
-    </div>
+  <footer class="footer mono">
+    <span>© 2026 Om Sakhare</span>
+    <span>Vasai <span class="clock" data-clock>--:--:--</span> IST</span>
   </footer>
 
-  <!-- Interactive Terminal CLI Modal -->
-  <div class="terminal-modal-overlay" id="terminal-modal">
-    <div class="terminal-window">
-      <div class="terminal-header">
-        <div class="terminal-dots">
-          <span class="term-dot dot-red"></span>
-          <span class="term-dot dot-yellow"></span>
-          <span class="term-dot dot-green"></span>
-        </div>
-        <div class="terminal-title">om@data-engine: ~ (bash/sql)</div>
-        <button class="terminal-close-btn" id="terminal-close-btn" aria-label="Close Terminal">✕</button>
-      </div>
-
-      <div class="terminal-body">
-        <div class="terminal-output" id="terminal-output">
-          <!-- Populated by terminal.js -->
-        </div>
-
-        <div class="term-input-wrapper">
-          <span class="term-prompt">om@data-mesh:~$</span>
-          <input type="text" id="terminal-input" class="term-input" placeholder="Type a command (e.g. 'help', 'skills', 'sql')..." autofocus autocomplete="off" spellcheck="false">
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Toast Notification Container -->
-  <div class="toast-notification" id="portfolio-toast"></div>
-
-  <!-- Scripts -->
-  <script src="js/data.js"></script>
-  <script src="js/sql-engine.js"></script>
-  <script src="js/pipeline-visualizer.js"></script>
-  <script src="js/data-cleaner-demo.js"></script>
-  <script src="js/terminal.js"></script>
-  <script src="js/app.js"></script>
+  <div class="cursor" aria-hidden="true"><span class="cursor-label mono"></span></div>
+  <script type="module" src="js/app.js"></script>
 </body>
 </html>

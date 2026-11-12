@@ -1,0 +1,7 @@
+# installed design skills (local tooling, not part of the site)
+.agents/
+.claude/
+skills-lock.json
+# tool caches
+.taste-skill/
+.hallmark/
